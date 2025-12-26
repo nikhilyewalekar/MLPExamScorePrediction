@@ -13,7 +13,7 @@ class PredictExamScore():
         self.create_test_df()
         self.predict = self.model.predict(self.test_df)
         print("Predicted Score is :",self.predict)
-        return np.round(self.predict[0],4)
+        return np.round(float(self.predict[0][0]),4)
 
     def create_test_df(self):    
 
