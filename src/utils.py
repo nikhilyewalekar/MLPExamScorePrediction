@@ -11,20 +11,19 @@ class PredictExamScore():
     def predict_score(self, user_input_data):
         self.data = user_input_data
         self.create_test_df()
-        self.predict = self.model.predict(self.test_df)
+        self.predict = self.model.predict(self.test_df.values)
         print("Predicted Score is :",self.predict)
         return np.round(float(self.predict[0][0]),4)
 
-    def create_test_df(self):    
-
+    def create_test_df(self):
         with open("artifacts/feature_names.pkl", "rb") as f:
             feature = pickle.load(f)
         test_array = np.zeros((1,len(feature)))
 
-        test_array[0,feature.index("age")] = self.data["age"]
-        test_array[0,feature.index("study_hours")] = self.data["study_hours"]
-        test_array[0,feature.index("class_attendance")] = self.data["class_attendance"]
-        test_array[0,feature.index("sleep_hours")] = self.data["sleep_hours"]
+        test_array[0,feature.index("age")] = float(self.data["age"])
+        test_array[0,feature.index("study_hours")] = float(self.data["study_hours"])
+        test_array[0,feature.index("class_attendance")] = float(self.data["class_attendance"])
+        test_array[0,feature.index("sleep_hours")] = float(self.data["sleep_hours"])
 
         gender = f'gender_{self.data["gender"]}'
         gender_index = feature.index(gender)
