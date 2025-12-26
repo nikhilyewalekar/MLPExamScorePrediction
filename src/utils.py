@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
-import sklearn
 from keras.models import load_model
-
 
 class PredictExamScore():
     def __init__(self):
