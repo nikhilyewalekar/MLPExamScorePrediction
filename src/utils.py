@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 class PredictExamScore():
     def __init__(self):
-        pass
+        self.load_saved_model()
 
     def predict_score(self, user_input_data):
         self.data = user_input_data
@@ -15,8 +15,7 @@ class PredictExamScore():
         print("Predicted Score is :",self.predict)
         return np.round(self.predict[0],4)
 
-    def create_test_df(self):
-        self.load_saved_model()
+    def create_test_df(self):    
 
         with open("artifacts/feature_names.pkl", "rb") as f:
             feature = pickle.load(f)
@@ -60,5 +59,5 @@ class PredictExamScore():
         self.test_df = pd.DataFrame(test_array, columns = feature)
 
     def load_saved_model(self):
-        filepath = os.path.join("artifacts", "AnnExamScoreModel.h5")
+        filepath = os.path.join("artifacts", "AnnExamScoreModel.keras")
         self.model = load_model(filepath)
