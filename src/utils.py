@@ -12,7 +12,7 @@ class PredictExamScore():
         self.data = user_input_data
         self.create_test_df()
         self.predict = self.model.predict(self.test_df.values)
-        print("Predicted Score is :",self.predict)
+        #print("Predicted Score is :",self.predict)
         return np.round(float(self.predict[0][0]),4)
 
     def create_test_df(self):
@@ -27,7 +27,7 @@ class PredictExamScore():
 
         gender = f'gender_{self.data["gender"]}'
         gender_index = feature.index(gender)
-        print("gender_index", gender_index)
+        #print("gender_index", gender_index)
         test_array[0,gender_index] = 1
  
         course = f'course_{self.data["course"]}'
@@ -54,7 +54,7 @@ class PredictExamScore():
         exam_difficulty_index = feature.index(exam_difficulty)
         test_array[0,exam_difficulty_index] = 1
 
-        print("test_array", test_array)
+        #print("test_array", test_array)
         self.test_df = pd.DataFrame(test_array, columns = feature)
 
     def load_saved_model(self):
