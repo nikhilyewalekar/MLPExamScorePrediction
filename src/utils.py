@@ -4,14 +4,17 @@ import pickle
 import os
 from tensorflow.keras.models import load_model
 
+model = None
+
 class PredictExamScore():
     def __init__(self):
-        self.load_saved_model()
+        pass
 
     def predict_score(self, user_input_data):
+        self.load_saved_model()
         self.data = user_input_data
         self.create_test_df()
-        self.predict = self.model.predict(self.test_df.values)
+        self.predict = model.predict(self.test_df.values)
         #print("Predicted Score is :",self.predict)
         return np.round(float(self.predict[0][0]),4)
 
@@ -58,5 +61,8 @@ class PredictExamScore():
         self.test_df = pd.DataFrame(test_array, columns = feature)
 
     def load_saved_model(self):
+        global model
         filepath = os.path.join("artifacts", "AnnExamScoreModel.keras")
-        self.model = load_model(filepath)
+        if model is None:
+            model = load_model(filepath)
+        return model
